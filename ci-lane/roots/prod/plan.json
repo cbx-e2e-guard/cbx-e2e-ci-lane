@@ -1,0 +1,34 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.8",
+  "resource_changes": [
+    {
+      "address": "aws_security_group.db",
+      "type": "aws_security_group",
+      "name": "db",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "name": "cbx-demo-db-open",
+          "description": "RDS Postgres, opened to the world by this change",
+          "ingress": [
+            {
+              "description": "Postgres from anywhere",
+              "protocol": "tcp",
+              "from_port": 5432,
+              "to_port": 5432,
+              "cidr_blocks": ["0.0.0.0/0"],
+              "ipv6_cidr_blocks": [],
+              "prefix_list_ids": [],
+              "security_groups": [],
+              "self": false
+            }
+          ],
+          "tags": { "Name": "cbx-demo-db-open" }
+        },
+        "after_unknown": { "id": true, "arn": true }
+      }
+    }
+  ]
+}
