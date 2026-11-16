@@ -1,0 +1,25 @@
+# The CBX Guard CI plan check, as docs/ci-plan-ingest.md says to add it (CB-1206).
+name: cbx-guard
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  plan-check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: CBX Guard
+        uses: ./.github/actions/cbx-guard
+        with:
+          plan-path: ci-lane/roots/staging/plan.json
+          api-url: ${{ vars.CBX_GUARD_API_URL }}
+          token: ${{ secrets.CBX_GUARD_TOKEN }}
+          account: "090847047879"
+          version: v0.1.0
+          download-token: ${{ secrets.CBX_GUARD_DOWNLOAD_TOKEN }}
